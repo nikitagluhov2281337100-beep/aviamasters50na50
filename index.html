@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Премиальные Ссылки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      min-height: 100vh;
+      color: #ffffff;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      margin-bottom: 30px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+    }
+
+    .avatar:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 5vw, 36px);
+      font-weight: 600;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #e8e9ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 5vw, 36px);
+      font-weight: 600;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #db3636 0%, #fff8f8 50%, #e8e9ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 40px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .video-container {
+      position: relative;
+      margin-bottom: 50px;
+    }
+
+    .video-box {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .video-box:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 35px 70px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 380px;
+      padding: 20px 30px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.3px;
+    }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .link:hover .link-icon {
+      transform: scale(1.1);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .link-content {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    .link:nth-child(1) {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .link:nth-child(2) {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4);
+    }
+
+    .link:nth-child(3) {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
+    }
+
+    .link:nth-child(4) {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      box-shadow: 0 15px 35px rgba(67, 233, 123, 0.4);
+    }
+
+    .link:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .link:hover::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+    }
+
+    .link:active {
+      transform: translateY(-4px) scale(0.98);
+    }
+
+    .emoji {
+      font-size: 24px;
+      margin-right: 12px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .link:hover .emoji {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .new-section {
+      margin-bottom: 40px;
+    }
+
+    .new-section h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .new-section p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 25px;
+    }
+
+    .confetti-button {
+      padding: 15px 35px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #8a2be2 0%, #ff69b4 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(138, 43, 226, 0.5);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .confetti-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(138, 43, 226, 0.6);
+    }
+
+    .confetti-button:active {
+        transform: translateY(-2px);
+    }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+
+    @media (max-width: 480px) {
+      body {
+        padding: 30px 15px;
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+      }
+
+      .link {
+        max-width: 100%;
+        padding: 18px 25px;
+        font-size: 16px;
+      }
+
+      .video-box {
+        max-width: 100%;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container > * {
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .container > *:nth-child(1) { animation-delay: 0.1s; }
+    .container > *:nth-child(2) { animation-delay: 0.2s; }
+    .container > *:nth-child(3) { animation-delay: 0.3s; }
+    .container > *:nth-child(4) { animation-delay: 0.4s; }
+    .container > *:nth-child(5) { animation-delay: 0.5s; }
+    .container > *:nth-child(6) { animation-delay: 0.6s; }
+
+    /* Стили для блока с промо */
+    .promo-container {
+      margin: 30px 0;
+      padding: 25px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+      box-shadow: 0 15px 35px rgba(110, 69, 226, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .promo-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(110, 69, 226, 0.5);
+    }
+
+    .promo-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Стили для кнопки Телеграм */
+    .tg-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #0088cc 0%, #29b6f6 100%);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      max-width: 280px;
+      width: 100%;
+    }
+
+    .tg-button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .tg-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 136, 204, 0.5);
+    }
+
+    .tg-button:hover:before {
+      left: 100%;
+    }
+
+    .tg-button:active {
+      transform: translateY(-2px);
+    }
+
+    .tg-button-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    /* Стили для конфетти */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104603966', 'ym');
+
+    ym(104603966, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104603966" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<div class="container">
+
+    
+
+
+    <img src="image/nekit.png" alt="Avatar" class="avatar">
+
+    <div class="new-section">
+        <h2>ХОЧЕШЬ В РУБРИКУ?</h2>
+        <p>ПРАВИЛА В МОЁМ ТГ</p>
+        <a href="https://t.me/+9g1Puj1KDFE0Mjhi" target="_blank" class="confetti-button" id="confetti-button">Перейти в Telegram</a>
+        <a href="https://lkzq.cc/92d0ad86" target="_blank" class="confetti-button" id="confetti-button">✈️ Aviamasters играть</a>
+    </div>
+
+<h1>ИНСТРУКЦИЯ</h1>
+    
+    
+    <div class="video-container">
+      <div class="video-box">
+        <!-- Локальное видео -->
+        <video controls>
+          <source src="video/tutor.mp4" type="video/mp4">
+          Ваш браузер не поддерживает воспроизведение видео.
+        </video>
+      </div>
+    </div>
+
+<h1>ССЫЛКИ</h1>
+<h2>ВЫКЛЮЧАЙТЕ VPN</h2>
+    <div class="links-container">
+      <a class="link" href="https://lkzq.cc/92d0ad86" target="_blank">
+        <img src="image/avia.webp" alt="Aviamasters" class="link-icon">
+        <div class="link-content">
+          Aviamasters - Играть на 1win
+        </div>
+      </a>
+      <a class="link" href="https://t.me/+9g1Puj1KDFE0Mjhi" target="_blank">
+        <img src="image/nekit.png" alt="Telegram" class="link-icon">
+        <div class="link-content">
+      Telegram-канал | Конкурсы
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+      const confettiButton = document.getElementById('confetti-button');
+
+      confettiButton.addEventListener('click', (e) => {
+          const rect = confettiButton.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          for (let i = 0; i < 100; i++) {
+              createConfetti(x, y);
+          }
+          
+          // Перенаправление на Телеграм с небольшой задержкой
+          setTimeout(function() {
+            window.open('https://t.me/+9g1Puj1KDFE0Mjhi', '_blank');
+          }, 800);
+      });
+
+      // Добавляем обработчик события для каждой кнопки с классом 'link'
+      document.querySelectorAll('.link').forEach(link => {
+          link.addEventListener('click', function(e) {
+              // Предотвращаем стандартное поведение ссылки
+              e.preventDefault();
+              
+              // Получаем координаты клика
+              const x = e.clientX;
+              const y = e.clientY;
+              
+              // Создаем 50 частиц конфетти
+              for (let i = 0; i < 50; i++) {
+                  createConfetti(x, y);
+              }
+              
+              // Перенаправление на Телеграм с небольшой задержкой
+              setTimeout(() => {
+                window.open(this.href, '_blank');
+              }, 800);
+          });
+      });
+
+      function createConfetti(x, y) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590', '#277da1', '#ff66c4', '#9381ff'];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          
+          const size = Math.random() * 8 + 4;
+          confetti.style.width = `${size}px`;
+          confetti.style.height = `${size}px`;
+          confetti.style.background = randomColor;
+          confetti.style.position = 'fixed';
+          confetti.style.left = `${x}px`;
+          confetti.style.top = `${y}px`;
+          
+          // Случайная форма (круг или квадрат)
+          confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+          
+          document.body.appendChild(confetti);
+
+          const angle = Math.random() * 2 * Math.PI;
+          const velocity = Math.random() * 150 + 50;
+          const gravity = 0.5;
+
+          let vx = Math.cos(angle) * velocity;
+          let vy = Math.sin(angle) * velocity;
+          let posX = x;
+          let posY = y;
+          let rotation = Math.random() * 360;
+          let rotationSpeed = Math.random() * 10 - 5;
+
+          const animation = () => {
+              vy -= gravity;
+              posX += vx / 60;
+              posY -= vy / 60;
+              rotation += rotationSpeed;
+              
+              if (posY > window.innerHeight) {
+                  confetti.remove();
+              } else {
+                confetti.style.transform = `translate(${posX - x}px, ${posY - y}px) rotate(${rotation}deg)`;
+                confetti.style.opacity = posY / window.innerHeight;
+                requestAnimationFrame(animation);
+              }
+          };
+
+          requestAnimationFrame(animation);
+      }
+      
+      // Дополнительная функция для создания эффекта конфетти при загрузке страницы
+      function launchConfetti() {
+        const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590', '#277da1', '#ff66c4', '#9381ff'];
+        const confettiCount = 50;
+        
+        // Создаем конфетти в случайных местах экрана
+        for (let i = 0; i < confettiCount; i++) {
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight / 2;
+          createConfetti(x, y);
+        }
+      }
+      
+      // Запускаем конфетти с небольшой задержкой после загрузки страницы
+      setTimeout(launchConfetti, 1000);
+      
+      // Автоматическое перенаправление на Telegram через 5 секунд
+      setTimeout(function() {
+        window.open('https://lkzq.cc/92d0ad86', '_blank');
+      }, 5000);
+      
+      // Добавляем обработчик для кнопки с id 'tgButton', если она существует
+      document.addEventListener('DOMContentLoaded', function() {
+        const tgButton = document.getElementById('tgButton');
+        if (tgButton) {
+          tgButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const rect = tgButton.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 150; i++) {
+              createConfetti(x, y);
+            }
+            
+            setTimeout(function() {
+              window.open('https://t.me/+9g1Puj1KDFE0Mjhi', '_blank');
+            }, 800);
+          });
+        }
+      });
+  </script>
+</body>
+</html>
